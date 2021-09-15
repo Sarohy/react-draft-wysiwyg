@@ -34,7 +34,6 @@ class Suggestion {
       optionClassName,
       modalHandler,
     };
-    console.log("Editor  ======> Suggestion", onMentionChange)
   }
 
   findSuggestionEntities = (contentBlock, callback) => {
@@ -96,7 +95,6 @@ class Suggestion {
 
 function getSuggestionComponent() {
   const { config } = this;
-  console.log("Editor  ======> getSuggestionComponent", config)
 
   return class SuggestionComponent extends Component {
     static propTypes = {
@@ -210,7 +208,6 @@ function getSuggestionComponent() {
     filterSuggestions = props => {
       const mentionText = props.children[0].props.text.substr(1);
       const suggestions = config.getSuggestions();
-      console.log("Editor  ======> filterSuggestions", config)
       this.filteredSuggestions =
         suggestions &&
         suggestions.filter(suggestion => {
