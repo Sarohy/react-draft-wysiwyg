@@ -270,7 +270,7 @@ function getSuggestionComponent() {
                     { 'rdw-suggestion-option-active': index === activeOption }
                   )}
                 >
-                  {suggestion.text}
+                 Hello World {suggestion.text}
                 </span>
               ))}
             </span>
