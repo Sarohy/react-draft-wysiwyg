@@ -55,7 +55,9 @@ class WysiwygEditor extends Component {
       },
       props.customBlockRenderFunc
     );
+    console.log("Editor  ======>",props)
     this.onMentionChange = props.onMentionChange;
+    console.log("Editor  ======>",this.onMentionChange)
     this.editorProps = this.filterEditorProps(props);
     this.customStyleMap = this.getStyleMap(props);
     this.compositeDecorator = this.getCompositeDecorator(toolbar);
@@ -214,6 +216,7 @@ class WysiwygEditor extends Component {
       }),
     ];
     if (this.props.mention) {
+      console.log("Editor  ======> mention",this.onMentionChange)
       decorators.push(
         ...getMentionDecorators({
           ...this.props.mention,
