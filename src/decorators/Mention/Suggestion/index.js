@@ -220,6 +220,7 @@ function getSuggestionComponent() {
               .indexOf(mentionText && mentionText.toLowerCase()) >= 0
           );
         });
+      config.onMentionChange(mentionText)
     };
 
     addMention = () => {
@@ -270,7 +271,7 @@ function getSuggestionComponent() {
                     { 'rdw-suggestion-option-active': index === activeOption }
                   )}
                 >
-                 Hello World s! {suggestion.text}
+                 {suggestion.text}
                 </span>
               ))}
             </span>

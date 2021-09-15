@@ -16,8 +16,8 @@ class Mention {
           href={url || value}
           className={classNames("rdw-mention-link", className)}
         >
-           Hello World  {children}
-        </a>
+          {children}
+          </a>
       );
     };
     MentionComponent.propTypes = {
