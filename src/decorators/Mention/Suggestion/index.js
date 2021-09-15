@@ -56,14 +56,20 @@ class Suggestion {
             ? text.length
             : selection.get('focusOffset') + 1
         );
+        this.config.onMentionChange(text)
+
         let index = text.lastIndexOf(separator + trigger);
+        this.config.onMentionChange(index)
         let preText = separator + trigger;
         if ((index === undefined || index < 0) && text[0] === trigger) {
           index = 0;
           preText = trigger;
         }
+        this.config.onMentionChange(preText)
         if (index >= 0) {
           const mentionText = text.substr(index + preText.length, text.length);
+          this.config.onMentionChange(mentionText)
+          this.config.onMentionChange(index)
           const suggestionPresent = getSuggestions().some(suggestion => {
             if (suggestion.value) {
               if (this.config.caseSensitive) {
