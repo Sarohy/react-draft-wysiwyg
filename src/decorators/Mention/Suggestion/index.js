@@ -223,7 +223,7 @@ function getSuggestionComponent() {
               .indexOf(mentionText && mentionText.toLowerCase()) >= 0
           );
         });
-      config.onMentionChange(mentionText)
+      config.onMentionChange(props.children[0].props.text)
     };
 
     addMention = () => {
