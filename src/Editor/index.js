@@ -56,6 +56,7 @@ class WysiwygEditor extends Component {
       props.customBlockRenderFunc
     );
     this.onMentionChange = props.onMentionChange;
+    this.renderSuggestion = props.renderSuggestion;
     this.editorProps = this.filterEditorProps(props);
     this.customStyleMap = this.getStyleMap(props);
     this.compositeDecorator = this.getCompositeDecorator(toolbar);
@@ -222,6 +223,7 @@ class WysiwygEditor extends Component {
           getSuggestions: this.getSuggestions,
           getWrapperRef: this.getWrapperRef,
           onMentionChange: this.onMentionChange,
+          renderSuggestion: this.renderSuggestion,
           modalHandler: this.modalHandler,
         })
       );
@@ -507,6 +509,7 @@ class WysiwygEditor extends Component {
 WysiwygEditor.propTypes = {
   onChange: PropTypes.func,
   onMentionChange: PropTypes.func,
+  renderSuggestion: PropTypes.func,
   onEditorStateChange: PropTypes.func,
   onContentStateChange: PropTypes.func,
   // initialContentState is deprecated

@@ -20,6 +20,7 @@ class Suggestion {
       dropdownClassName,
       optionClassName,
       modalHandler,
+      renderSuggestion
     } = config;
     this.config = {
       separator,
@@ -33,6 +34,7 @@ class Suggestion {
       dropdownClassName,
       optionClassName,
       modalHandler,
+      renderSuggestion
     };
   }
 
@@ -275,8 +277,7 @@ function getSuggestionComponent() {
                     { 'rdw-suggestion-option-active': index === activeOption }
                   )}
                 >
-                  <img src={suggestion.image}/>
-                 {suggestion.text}
+                  {config.renderSuggestion(suggestion)}
                 </span>
               ))}
             </span>
