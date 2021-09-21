@@ -275,6 +275,7 @@ function getSuggestionComponent() {
                     { 'rdw-suggestion-option-active': index === activeOption }
                   )}
                 >
+                  <img src={suggestion.image}/>
                  {suggestion.text}
                 </span>
               ))}
