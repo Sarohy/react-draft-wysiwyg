@@ -68,7 +68,23 @@ class Suggestion {
         if (index >= 0) {
           const mentionText = text.substr(index + preText.length, text.length);
           this.config.onMentionChange(mentionText)
-          callback(index === 0 ? 0 : index + 1, text.length);
+          const suggestionPresent = getSuggestions().some(suggestion => {
+            if (suggestion.value) {
+              if (this.config.caseSensitive) {
+                return suggestion.value.indexOf(mentionText) >= 0;
+              }
+              return (
+                suggestion.value
+                  .toLowerCase()
+                  .indexOf(mentionText && mentionText.toLowerCase()) >= 0
+              );
+            }
+            return false;
+          });
+          this.config.onMentionChange(suggestionPresent)
+          if (suggestionPresent) {
+            callback(index === 0 ? 0 : index + 1, text.length);
+          }
         }
       }
     }
@@ -197,6 +213,23 @@ function getSuggestionComponent() {
     filterSuggestions = props => {
       const mentionText = props.children[0].props.text.substr(1);
       const suggestions = config.getSuggestions();
+      config.onMentionChange(suggestions)
+      this.filteredSuggestions =
+        suggestions &&
+        suggestions.filter(suggestion => {
+          if (!mentionText || mentionText.length === 0) {
+            return true;
+          }
+          if (config.caseSensitive) {
+            return suggestion.value.indexOf(mentionText) >= 0;
+          }
+          return (
+            suggestion.value
+              .toLowerCase()
+              .indexOf(mentionText && mentionText.toLowerCase()) >= 0
+          );
+        });
+        config.onMentionChange(filteredSuggestions)
     };
 
     addMention = () => {
@@ -233,7 +266,7 @@ function getSuggestionComponent() {
               style={this.state.style}
               ref={this.setDropdownReference}
             >
-              {this.suggestion.map((suggestion, index) => (
+              {this.filteredSuggestions.map((suggestion, index) => (
                 <span
                   key={index}
                   spellCheck={false}
