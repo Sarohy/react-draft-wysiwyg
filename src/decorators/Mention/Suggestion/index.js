@@ -68,22 +68,7 @@ class Suggestion {
         if (index >= 0) {
           const mentionText = text.substr(index + preText.length, text.length);
           this.config.onMentionChange(mentionText)
-          const suggestionPresent = getSuggestions().some(suggestion => {
-            if (suggestion.value) {
-              if (this.config.caseSensitive) {
-                return suggestion.value.indexOf(mentionText) >= 0;
-              }
-              return (
-                suggestion.value
-                  .toLowerCase()
-                  .indexOf(mentionText && mentionText.toLowerCase()) >= 0
-              );
-            }
-            return false;
-          });
-          if (suggestionPresent) {
-            callback(index === 0 ? 0 : index + 1, text.length);
-          }
+          callback(index === 0 ? 0 : index + 1, text.length);
         }
       }
     }
@@ -212,21 +197,6 @@ function getSuggestionComponent() {
     filterSuggestions = props => {
       const mentionText = props.children[0].props.text.substr(1);
       const suggestions = config.getSuggestions();
-      this.filteredSuggestions =
-        suggestions &&
-        suggestions.filter(suggestion => {
-          if (!mentionText || mentionText.length === 0) {
-            return true;
-          }
-          if (config.caseSensitive) {
-            return suggestion.value.indexOf(mentionText) >= 0;
-          }
-          return (
-            suggestion.value
-              .toLowerCase()
-              .indexOf(mentionText && mentionText.toLowerCase()) >= 0
-          );
-        });
     };
 
     addMention = () => {
@@ -263,7 +233,7 @@ function getSuggestionComponent() {
               style={this.state.style}
               ref={this.setDropdownReference}
             >
-              {this.filteredSuggestions.map((suggestion, index) => (
+              {this.suggestion.map((suggestion, index) => (
                 <span
                   key={index}
                   spellCheck={false}
