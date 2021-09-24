@@ -81,7 +81,6 @@ class Suggestion {
             }
             return false;
           });
-          this.config.onMentionChange(suggestionPresent)
           if (suggestionPresent) {
             callback(index === 0 ? 0 : index + 1, text.length);
           }
@@ -208,28 +207,9 @@ function getSuggestionComponent() {
       });
     };
 
-    filteredSuggestions = [];
+    filteredSuggestions = config.getSuggestions();
 
     filterSuggestions = props => {
-      const mentionText = props.children[0].props.text.substr(1);
-      const suggestions = config.getSuggestions();
-      config.onMentionChange(suggestions)
-      this.filteredSuggestions =
-        suggestions &&
-        suggestions.filter(suggestion => {
-          if (!mentionText || mentionText.length === 0) {
-            return true;
-          }
-          if (config.caseSensitive) {
-            return suggestion.value.indexOf(mentionText) >= 0;
-          }
-          return (
-            suggestion.value
-              .toLowerCase()
-              .indexOf(mentionText && mentionText.toLowerCase()) >= 0
-          );
-        });
-        config.onMentionChange(filteredSuggestions)
     };
 
     addMention = () => {
